@@ -1,0 +1,24 @@
+# CITATION.cff
+cff-version: 1.2.0
+message: "If you use this software or research, please cite it as below."
+type: software
+authors:
+  - family-names: Jefferson
+    given-names: Rick
+    affiliation: "RJ Business Solutions"
+    email: rjbizsolution23@gmail.com
+    website: "https://rickjeffersonsolutions.com"
+title: "Red Team Arsenal: Sovereign Adversarial Emulation Platform"
+abstract: "An enterprise-grade, multi-agent AI framework for autonomous vulnerability discovery, exploitation simulation, and automated remediation."
+version: "1.0.0"
+date-released: "2026-02-26"
+url: "https://github.com/rjbizsolution23-wq/red-team-arsenal"
+repository-code: "https://github.com/rjbizsolution23-wq/red-team-arsenal"
+license: Apache-2.0
+keywords:
+  - artificial-intelligence
+  - red-teaming
+  - autonomous-agents
+  - cybersecurity
+  - remediation-engine
+  - mitre-attack

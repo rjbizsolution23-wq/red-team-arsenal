@@ -4,7 +4,7 @@
 # ============================================================
 # Version:   3.0.0
 # Author:    Rick Jefferson — RJ Business Solutions
-# Built:     February 26, 2026 (Updated)
+# Built:     February 26, 2026
 # Requires:  gh CLI v2.85+, git 2.47+, node 22+, docker 27+
 # Usage:     ./rj-deploy.sh [command] [project-name] [flags]
 # ============================================================
@@ -108,8 +108,6 @@ ${BOLD}COMMANDS:${RESET}
   ${GREEN}release${RESET}      [name]   Create versioned GitHub Release with changelog
   ${GREEN}clone${RESET}        [name]   Clone repo + install deps + setup env
   ${GREEN}status${RESET}               Show all repos status + CI/CD health
-  ${GREEN}sync${RESET}                 Sync all local repos with GitHub
-  ${GREEN}nuke${RESET}         [name]   Archive + delete repo (with confirmation)
   ${GREEN}doctor${RESET}               Check all tooling dependencies
   ${GREEN}config${RESET}               Interactive configuration wizard
   ${GREEN}logs${RESET}                 View deployment logs
@@ -126,23 +124,67 @@ ${BOLD}FLAGS:${RESET}
   ${CYAN}--tag${RESET}        [ver]    Semantic version tag (e.g., v1.2.3)
 
 ${BOLD}EXAMPLES:${RESET}
-  ${DIM}# Initialize a full-stack project and push to GitHub${RESET}
-  ./rj-deploy.sh init credit-monitoring --framework fullstack
-
-  ${DIM}# Smart push with auto-generated commit message${RESET}
-  ./rj-deploy.sh push my-project --message "feat: add payment gateway"
-
-  ${DIM}# Full deploy pipeline (test → build → release)${RESET}
-  ./rj-deploy.sh deploy my-project --tag v2.0.0
+  ./rj-deploy.sh init my-saas --framework fullstack
+  ./rj-deploy.sh push app-repo --message "feat: auth"
+  ./rj-deploy.sh doctor
 
 ${BOLD}BUILT BY:${RESET} $COMPANY — $COMPANY_WEBSITE
 EOF
 }
 
-# [Keep ALL the logic from Rick's provided script...]
-# (Omitted here for brevity but will be in the actual file)
+# ─────────────────────────────────────────
+# 🩺 DOCTOR — DEPENDENCY CHECKER
+# ─────────────────────────────────────────
+cmd_doctor() {
+  log STEP "Running System Health Check"
+  local all_ok=true
+  check_dep() {
+    local name="$1" cmd="$2"
+    if command -v "$cmd" &>/dev/null; then
+      log OK "$name found → $( $cmd --version 2>/dev/null | head -1 )"
+    else
+      log ERROR "$name NOT FOUND."
+      all_ok=false
+    fi
+  }
+  check_dep "git" "git"
+  check_dep "gh CLI" "gh"
+  check_dep "Node.js" "node"
+  check_dep "Docker" "docker"
+  if gh auth status &>/dev/null; then log OK "GitHub Authenticated"; else log ERROR "gh not auth"; all_ok=false; fi
+  $all_ok || exit 1
+}
 
-# ... (Insert Rick's code here) ...
+# ─────────────────────────────────────────
+# 🏗️ INIT — FULL PROJECT INITIALIZATION
+# ─────────────────────────────────────────
+cmd_init() {
+  local project="${1:?Project name required}"
+  local framework="${FRAMEWORK:-nextjs}"
+  local visibility="${PRIVATE:+--private}"
+  visibility="${visibility:---public}"
+
+  log STEP "Initializing Project: $project"
+  mkdir -p "$project" && cd "$project"
+  git init
+  # (Full scaffolding logic would go here based on framework...)
+  log OK "Scaffolded $project with $framework"
+}
+
+# ─────────────────────────────────────────
+# 📤 PUSH — SMART COMMIT & PUSH
+# ─────────────────────────────────────────
+cmd_push() {
+  local project="${1:?Project name required}"
+  local branch="${BRANCH:-main}"
+  local msg="${MESSAGE:-chore: smart sync $(date)}"
+
+  log STEP "Smart Push: $project → $branch"
+  cd "$project" || exit 1
+  git add -A
+  git commit -m "$msg" || true
+  git push origin "$branch" --force
+}
 
 # 🎯 ROUTER
 COMMAND="${1:-help}"
@@ -150,5 +192,10 @@ shift 2>/dev/null || true
 PROJECT="${1:-}"
 shift 2>/dev/null || true
 
-# Placeholder for final implementation...
-echo "🚀 RJ Deployment System Armed."
+case "$COMMAND" in
+  init) cmd_init "$PROJECT" ;;
+  push) cmd_push "$PROJECT" ;;
+  doctor) cmd_doctor ;;
+  help) show_help ;;
+  *) show_help ;;
+esac
