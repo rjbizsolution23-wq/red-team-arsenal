@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔴💀 THE CITADEL | Red Team Arsenal</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #141414;
+            --accent: #ff003c;
+            --text: #e0e0e0;
+            --glow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            padding: 20px;
+            background: var(--panel);
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--glow);
+        }
+        .main {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            flex: 1;
+            gap: 10px;
+            padding: 10px;
+        }
+        .missions, .logs {
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .mission-card {
+            background: #1e1e1e;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #333;
+            padding: 5px;
+        }
+        .status-active { color: #00ff00; }
+        .status-completed { color: #0088ff; }
+        .accent-text { color: var(--accent); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <span class="accent-text">🔴💀 THE CITADEL</span> | MISSION CONTROL v1.0
+        </div>
+        <div>
+            STATUS: <span class="status-active">OPERATIONAL</span>
+        </div>
+    </header>
+    <div class="main">
+        <div class="missions">
+            <h3>ACTIVE MISSIONS</h3>
+            <div id="mission-list">
+                <!-- Missions injected here -->
+                <div class="mission-card">
+                    <div class="accent-text">Session 417df990</div>
+                    <div>Target: store.local</div>
+                    <div class="status-active">▶ EXECUTING</div>
+                </div>
+            </div>
+        </div>
+        <div class="logs">
+            <h3>REAL-TIME AGENT TELEMETRY</h3>
+            <div id="log-feed">
+                <div class="log-entry">[12:21:29] [DBAgent] Testing Union-based SQLi...</div>
+                <div class="log-entry">[12:21:30] [REAgent] Found AWS key in bundle.js...</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

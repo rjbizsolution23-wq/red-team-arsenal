@@ -1,0 +1,45 @@
+name: 🚀 Sovereign Production Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: 🏗️ Install Backend Deps
+      run: |
+        pip install -r requirements.txt
+        pip install pytest
+        
+    - name: 🧪 Run Backend Tests
+      run: pytest
+      
+    - name: ⚛️ Build Frontend
+      run: |
+        cd dashboard
+        npm install
+        npm run build
+        
+    - name: 🛡️ Security Scan
+      run: |
+        pip install bandit
+        bandit -r core/ agents/ api.py
+        
+  deploy:
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚀 Ready for Production Delivery
+      run: echo "Sovereign Build Verified. Manual review required for production push."

@@ -1,0 +1,1 @@
+{"session_id": "0f7fd840", "created_at": 1772106380.4737642, "messages": [], "findings": [], "artifacts": [{"ts": 1772106381.860961, "name": "Final Report", "path": "./reports/report_0f7fd840.md", "type": "report"}], "knowledge": [], "subtasks": [], "agent_results": {}, "context": {"target": "ai-testing.local", "request": "test AI security"}}

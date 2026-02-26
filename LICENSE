@@ -1,0 +1,21 @@
+# RJ Business Solutions: Sovereign Software License v1.0
+
+Copyright (c) 2026 Rick Jefferson / RJ Business Solutions. All Rights Reserved.
+
+## 1. DEFINITIONS
+"Sovereign Software" refers to the Red Team Arsenal v1.0, including all agents, orchestrators, and associated infrastructure code.
+"The Owner" refers to Rick Jefferson and RJ Business Solutions.
+
+## 2. GRANT OF LICENSE
+This license grants the user the right to deploy, modify, and execute the Sovereign Software exclusively for authorized security research, adversarial auditing, and internal defensive operations.
+
+## 3. RESTRICTIONS
+- **No Unauthorized Distribution**: This software may not be redistributed, sold, or shared outside of authorized RJ Business Solutions channels.
+- **Ethical Use**: This software must not be used against any target without explicit, written authorization and legal standing.
+- **Sovereign Clause**: The software contains internal meta-AGI guardrails that may not be bypassed or disabled.
+
+## 4. DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. THE OWNER ACCEPTS NO LIABILITY FOR DAMAGES ARISING FROM THE USE OR MISUSE OF THE SOVEREIGN SOFTWARE.
+
+---
+*Authorized by Rick Jefferson | RJ Business Solutions*

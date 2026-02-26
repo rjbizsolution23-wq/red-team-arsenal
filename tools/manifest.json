@@ -1,0 +1,33 @@
+{
+  "windows_binaries": {
+    "mimikatz": {
+      "purpose": "Credential Dumping",
+      "url": "https://github.com/gentilkiwi/mimikatz/releases",
+      "binary_path": "mimikatz/x64/mimikatz.exe"
+    },
+    "rubeus": {
+      "purpose": "Kerberos Exploitation",
+      "url": "https://github.com/GhostPack/Rubeus",
+      "binary_path": "Rubeus.exe"
+    },
+    "sharphound": {
+      "purpose": "BloodHound Collector",
+      "binary_path": "SharpHound.exe"
+    }
+  },
+  "linux_binaries": {
+    "chisel": {
+      "purpose": "Tunneling/Pivoting",
+      "binary_path": "chisel"
+    },
+    "linpeas": {
+      "purpose": "Privilege Escalation",
+      "script_path": "linpeas.sh"
+    }
+  },
+  "recon": ["amass", "subfinder", "nuclei", "feroxbuster", "naabu"],
+  "exploitation": ["sqlmap", "commix", "tplmap", "xsstrike"],
+  "c2_frameworks": ["sliver", "havoc", "mythic", "covenant", "empire"],
+  "cloud": ["pacu", "prowler", "cloudfox", "scoutsuite"],
+  "mobile": ["mobsf", "drozer", "objection", "frida"]
+}

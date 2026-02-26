@@ -1,0 +1,1 @@
+{"session_id": "9a4f0114", "created_at": 1772105678.432537, "messages": [], "findings": [], "artifacts": [{"ts": 1772105679.731702, "name": "Final Report", "path": "./reports/report_9a4f0114.md", "type": "report"}], "knowledge": [], "subtasks": [], "agent_results": {}, "context": {"target": "http://myfreescorenow.com", "request": "Perform a full AI security audit"}}

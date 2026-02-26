@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # 🔴 CORE ORCHESTRATOR
+  arsenal:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - INFERMATIC_API_KEY=${INFERMATIC_API_KEY}
+    networks:
+      - red-team-net
+
+  # 💀 SLIVER C2
+  sliver:
+    image: bishopfox/sliver
+    networks:
+      - red-team-net
+    ports:
+      - "31337:31337"
+
+  # 💀 HAVOC C2
+  havoc:
+    image: havoc-c2-official:latest
+    networks:
+      - red-team-net
+    ports:
+      - "443:443"
+
+  # 💀 MYTHIC C2
+  mythic:
+    image: its_a_feature_mythic:latest
+    networks:
+      - red-team-net
+    ports:
+      - "7443:7443"
+
+  # 🛠 METASPLOIT
+  metasploit:
+    image: metasploitframework/metasploit-framework
+    networks:
+      - red-team-net
+
+  # 🛠 NUCLEI
+  nuclei:
+    image: projectdiscovery/nuclei
+    volumes:
+      - ./reports:/app/reports
+    networks:
+      - red-team-net
+
+  # 🧠 KNOWLEDGE BASE (QDRANT)
+  vector_db:
+    image: qdrant/qdrant
+    networks:
+      - red-team-net
+    ports:
+      - "6333:6333"
+
+  # 📈 MONITORING (ELK)
+  elasticsearch:
+    image: elasticsearch:8.x
+    networks:
+      - red-team-net
+  
+  grafana:
+    image: grafana/grafana
+    networks:
+      - red-team-net
+    ports:
+      - "3000:3000"
+
+networks:
+  red-team-net:
+    driver: bridge
